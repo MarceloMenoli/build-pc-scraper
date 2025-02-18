@@ -33,6 +33,8 @@ func VerificaPrecos() {
 				continue
 			}
 			if preco < valorAlvo {
+				log.Println("Preço: ", preco, "valor alvo: ", valorAlvo)
+
 				msg := "Alerta: O preço do " + prod.Nome + " está abaixo de R$" +
 					strconv.FormatFloat(valorAlvo, 'f', 2, 64) + "! Preço atual: " + prod.Preco
 				// Substitua pelo número de destino desejado
