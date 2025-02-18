@@ -23,11 +23,14 @@ func converterPreco(precoStr string) (float64, error) {
 func VerificaPrecos() {
 	processadorAlvo := "Ryzen 5 7600"
 	valorAlvo := 1700.00 // valor alvo em reais
-
 	prods := GetProducts()
+	log.Println("prods: ", prods)
 	for _, prod := range prods {
+		log.Println(strings.Contains(prod.Nome, processadorAlvo))
 		if strings.Contains(prod.Nome, processadorAlvo) {
 			preco, err := converterPreco(prod.Preco)
+			log.Println("Preço: ", preco)
+
 			if err != nil {
 				log.Println("Erro ao converter o preço:", err)
 				continue
