@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"build-pc-scraper/handlers"
 	"build-pc-scraper/scraper"
@@ -31,7 +32,11 @@ func main() {
 
 	// Configura o endpoint HTTP.
 	http.HandleFunc("/produtos", handlers.ProductsHandler)
-	port := ":8080"
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	log.Println("Servidor rodando na porta", port)
 	if err := http.ListenAndServe(port, nil); err != nil {
 		log.Fatal("Erro ao iniciar o servidor:", err)
