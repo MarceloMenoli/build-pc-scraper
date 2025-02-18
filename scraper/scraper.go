@@ -22,8 +22,17 @@ var (
 
 // UpdateProducts realiza o scraping e atualiza a lista de produtos.
 func UpdateProducts() error {
+	opts := append(chromedp.DefaultExecAllocatorOptions[:],
+		chromedp.ExecPath("/usr/bin/chromium"), // ou use a variável de ambiente CHROME_PATH se preferir
+		chromedp.Flag("headless", true),
+		chromedp.Flag("disable-gpu", true),
+	)
+
+	allocCtx, cancel := chromedp.NewExecAllocator(context.Background(), opts...)
+	defer cancel()
+
 	// Cria um contexto para o chromedp com timeout.
-	ctx, cancel := chromedp.NewContext(context.Background())
+	ctx, cancel := chromedp.NewContext(allocCtx)
 	ctx, cancel = context.WithTimeout(ctx, 120*time.Second)
 	defer cancel()
 
