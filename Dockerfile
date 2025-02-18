@@ -13,7 +13,8 @@ FROM alpine:3.16
 RUN apk update && apk add --no-cache \
   chromium \
   ca-certificates \
-  ttf-freefont
+  ttf-freefont \
+  && ln -s /usr/bin/chromium-browser /usr/bin/chromium
 
 WORKDIR /root/
 COPY --from=builder /app/main .
